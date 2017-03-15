@@ -31,7 +31,7 @@ db.serialize(function() {
     db.run("CREATE TABLE IF NOT EXISTS guardian (guardian_id TEXT PRIMARY KEY NOT NULL,applicant_id TEXT, nominee_id TEXT, first_name TEXT,last_name TEXT,age TEXT,sex TEXT,FOREIGN KEY(nominee_id) REFERENCES nominee(nominee_id),FOREIGN KEY(applicant_id) REFERENCES applicant(applicant_id))");
 
 
-// NOTE: If a restart is required, this part should be completely commented after database has been populated.
+// NOTE: This part is to populate database.
 //     db.run("INSERT INTO applicant (applicant_id, first_name, last_name, age, sex) VALUES (?, ?, ?, ?, ?)", "a1", "Pankesh1", 'Kumar', 21, "male");
 //     db.run("INSERT INTO applicant (applicant_id, first_name, last_name, age, sex) VALUES (?, ?, ?, ?, ?)", "a2", "Pankesh2", 'Kumar', 19, "male");
 //     db.run("INSERT INTO applicant (applicant_id, first_name, last_name, age, sex) VALUES (?, ?, ?, ?, ?)", "a3", "Pankesh3", 'Kumar', 23, "male");
@@ -46,7 +46,6 @@ db.serialize(function() {
 //
 //     db.run("INSERT INTO guardian (guardian_id, applicant_id, nominee_id, first_name, last_name, age, sex) VALUES (?, ?, ?, ?, ?, ?, ?)", "g1", "a4", "n4", "Guardian1", 'Kumar', 23, "male");
 //     db.run("INSERT INTO guardian (guardian_id, applicant_id, nominee_id, first_name, last_name, age, sex) VALUES (?, ?, ?, ?, ?, ?, ?)", "g2", "a3", "n3", "Guardian2", 'Kumar', 23, "male");
-//
 });
 
 
@@ -54,7 +53,7 @@ db.serialize(function() {
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
 
-// Get all info related to a applicant (accessed at GET http://localhost:8080/api/getApplicantInfo)
+// Get all info related to a applicant (accessed at GET http://localhost:8080/api/get/<applicantID>)
 router.get('/get/:applicant_id', function(req, res) {
     async.series({
         data: function(callback) {
@@ -99,6 +98,11 @@ router.get('/get/:applicant_id', function(req, res) {
     });
 });
 
+// add new applicant/nominee/guardian (
+// for applicant accessed at POST http://localhost:8080/api/add/applicant)
+// for nominee accessed at POST http://localhost:8080/api/add/nominee)
+// for guardian accessed at POST http://localhost:8080/api/add/guardian)
+// post data Sample : data:{"applicant_id":"a5","first_name":"Pankesh5","last_name":"Kumar","age":"23","sex":"male"}
 router.post('/add/:type', function(req, res){
 
     var type = req.params.type;

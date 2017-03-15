@@ -16,5 +16,4 @@ if (env == "production") {
     module.exports = dconfig.production;
 } else {
     module.exports = dconfig.development;
-    console.log (dconfig.development);
 }
