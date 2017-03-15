@@ -1,0 +1,19 @@
+development:
+
+  # port to listen on for the node server
+  serverPort: 8080
+
+  # name of sqLite database
+  databaseName: 'demodb.db'
+
+  dataToTableMap:
+    "applicant":
+      table: "applicant"
+      insertTemplate: "(applicant_id, first_name, last_name, age, sex) VALUES (?, ?, ?, ?, ?)"
+    "nominee":
+      table: "nominee"
+      insertTemplate: "(nominee_id, applicant_id, first_name, last_name, age, sex) VALUES (?, ?, ?, ?, ?, ?)"
+    "guardian":
+      table: "guardian"
+      insertTemplate: "(guardian_id, applicant_id, nominee_id, first_name, last_name, age, sex) VALUES (?, ?, ?, ?, ?, ?, ?)"
+
